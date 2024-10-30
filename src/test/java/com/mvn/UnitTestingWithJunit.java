@@ -1,27 +1,40 @@
 package com.mvn;
 
+import java.time.Duration;
+
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class UnitTestingWithJunit {
-public void fbLogin(String username,String password) throws InterruptedException {
-	WebDriverManager.chromedriver().setup();
-	WebDriver driver=new ChromeDriver();
+	String url;
+public void sdLogin(String username,String password) throws InterruptedException {
+	WebDriverManager.firefoxdriver().setup();
+	WebDriver driver=new FirefoxDriver();
 	
-	driver.get("https://www.facebook.com/");
+	driver.get("https://www.saucedemo.com/");
 	Thread.sleep(2000);
-	driver.findElement(By.id("email")).sendKeys(username);
+	driver.findElement(By.id("user-name")).sendKeys(username);
 	Thread.sleep(2000);
-	driver.findElement(By.id("pass")).sendKeys(password);
+	driver.findElement(By.id("password")).sendKeys(password);
 	Thread.sleep(2000);
-	driver.findElement(By.name("login")).click();
+	driver.findElement(By.name("login-button")).click();
 	Thread.sleep(2000);
-	driver.findElement(By.id("//*[@id=\"mount_0_0_2f\"]/div/div/div[1]/div/div[2]/div[5]/div[1]/span/div/div[1]/div/svg/g/image"))
+	url=driver.getCurrentUrl();
+    
+	driver.findElement(By.id("react-burger-menu-btn"))
 	.click();
 	Thread.sleep(2000);
-	driver.findElement(By.xpath("//*[@id=\":r22:\"]")).click();
+	
+	driver.findElement(By.id("logout_sidebar_link")).click();
+	driver.quit();
 }
 }

@@ -3,33 +3,38 @@ package com.mvn;
 import java.util.Arrays;
 import java.util.Collection;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 @RunWith(Parameterized.class)
-public class JunitFBData {
+public class JunitSDData {
 	String username,password;
 	UnitTestingWithJunit utj;
-	
+	String url="https://www.saucedemo.com/inventory.html";
 	@Before
 	public void before() {
 		utj=new UnitTestingWithJunit();
 	}
-	public JunitFBData(String username,String password) {
+	public JunitSDData(String username,String password) {
 		this.username=username;
 		this.password=password;
 	}
 	
 	@Parameterized.Parameters
 	public static Collection input() {
-		return Arrays.asList(new Object[][] {{"meertanvi.testing@gmail.com","Tops@123"},
-			{"meertanvitesting@gmail.com","Tops@123"},
-				{"meertanvi.testing123@gmail.com","Tops@123"}});  
+		return Arrays.asList(new Object[][] {
+	{"standard_user","secret_sauce"},
+	{"problem_user","secret_sauce"},
+	{"locked_out_user","secret_sauce"}});  
 	}
 	
 	@Test
 	public void test() throws InterruptedException {
-		utj.fbLogin(username, password);
+		utj.sdLogin(username, password);
+		Thread.sleep(10000);
+		Assert.assertEquals(url, utj.url);
 	}
+	
 }
